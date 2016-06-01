@@ -1,0 +1,144 @@
+// NAVBARS
+.navbar {
+    form {
+            float: right;
+        input {
+            margin: 0;
+            height: 1rem;
+            margin-right: 5px;
+            margin-bottom: 1px;
+        }
+    }
+    .navbar-toggler {
+        float: right;
+        &:focus {
+            background-color: inherit;
+        }
+    }
+    .breadcrumb {
+        margin: 0;
+        background-color: inherit;
+    }
+    &.navbar-dark {
+        .breadcrumb {
+            a {
+                color: #fff;
+            }
+            .active {
+                color: #90caf9;
+            }
+        }
+        .navbar-toggler {
+            color: #fff;
+        }
+    }
+    &.navbar-light {
+        .breadcrumb {
+            a {
+                color: #000;
+            }
+            .active {
+                color: #757575;
+            }
+        }
+        .navbar-toggler {
+            color: #000;
+        }
+    }
+    @media (max-width: 544px) {
+        .navbar-toggleable-xs {
+            .navbar-brand {
+                float: none;
+            }
+            ul {
+                float: none;
+            }
+            ul li {
+                float: none;
+            }
+            form {
+                float: left;
+            }
+            .nav-item {
+                margin-left: 0;
+            }
+        }
+    }
+    @media (max-width: 768px) {
+        .navbar-toggleable-sm {
+            .navbar-brand {
+                float: none;
+            }
+            ul {
+                float: none;
+            }
+            ul li {
+                float: none;
+            }
+            form {
+                float: left;
+                padding-left: 4px;
+            }
+            .nav-item {
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+// Input line color
+.navbar-dark form {
+    // Style Placeholders
+    ::-webkit-input-placeholder {
+        color: #fff!important;
+        font-weight: 300;
+    }
+    :-moz-placeholder {
+        /* Firefox 18- */
+        color: #fff!important;
+        font-weight: 300;
+    }
+    ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: #fff!important;
+        font-weight: 300;
+    }
+    :-ms-input-placeholder {
+        color: #fff!important;
+        font-weight: 300;
+    }
+    input[type=text] {
+        border-bottom: 1px solid #fff;
+    }
+    .form-control {
+        color: #fff;
+    }
+}
+
+.navbar-light form {
+    // Style Placeholders
+    ::-webkit-input-placeholder {
+        color: #1C2331!important;
+        font-weight: 300;
+    }
+    :-moz-placeholder {
+        /* Firefox 18- */
+        color: #1C2331!important;
+        font-weight: 300;
+    }
+    ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: #1C2331!important;
+        font-weight: 300;
+    }
+    :-ms-input-placeholder {
+        color: #1C2331!important;
+        font-weight: 300;
+    }
+    input[type=text] {
+        border-bottom: 1px solid #1C2331;
+    }
+    .form-control {
+        color: #1C2331;
+    }
+}

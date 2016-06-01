@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+        <title> Strava Segment Weather Analysis </title>
+        <script src="js/ajaxRequest.js"> </script>
+        <script src="js/utility.js"> </script> 
+    </head>
+    <body>
+        <nav class="cyan darken-1">
+            <div class="navbar-wrapped container">
+                <a href="http://horatiulazu.ca" class="brand-logo"> Segment Analysis </a>
+                <a href="#" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class = "right hide-on-med-and-down">
+                    <li> <a href="index.html"> Home </a> </li>
+                    <li> <a href="about/index.html"> About </a> </li>
+                </ul>
+                <ul class="side-nav" id = "mobile">
+                    <li> <a href="index.html"> Home </a> </li>
+                    <li> <a href="about/index.html"> About </a> </li>
+                </ul>
+            </div>
+        </nav>
+        <br>
+        <div class="container">
+            <div class = "row">
+                <div class="col s12">
+                    <!--<div class="card-panel teal lighten-4"> -->
+                    <div class="card-panel">
+                        <h5 class="cyan-text"> Strava Segment Weather Analysis </h5>
+                        Welcome! The purpose of the Strava Segment Weather Analysis web application is to allow the user to determine if wind played an important factor in segments. Follow the instructions below on computing it yourself!
+                        <br>
+                        <br>
+                        <div class="input-field col s5">
+                            <input placeholder="10112025" id="first_name" type="text" class="validate">
+                            <label for="first_name">Segment Identifier</label>
+                        </div>
+                        <div class="input-field col s5">
+                            <input placeholder="b6d69060589a4ebe5c4efbcb5069bf2d50224bf2" id="first_name" type="text" class="validate">
+                            <label for="first_name">Authentication ID</label>
+                        </div>
+                        <br>
+                        <a class="waves-effect waves-light btn">Compute</a>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div class="col s12">
+                    <div class="card-panel">
+                        <h5 class="cyan-text"> Computation </h5>
+                        <table id ="computed">
+                            <thead>
+                                <tr>
+                                    <th data-field="price">Rank</th>
+                                    <th data-field="id">Athlete Name</th>
+                                    <th data-field="name">Date</th>
+                                    <th data-field="price">Speed</th>
+                                    <th data-field="price">Wind Direction</th>
+                                    <th data-field="price">Influence Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td>Alvin</td>
+                                    <td>Eclair</td>
+                                    <td>$0.87</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col s12">
+                    <!--<div class="card-panel teal lighten-4"> -->
+                    <div class="card-panel">
+                        <h5 class="cyan-text"> Instructions </h5>
+                        Follow the instructions carefully. Due to Strava API V3, you need to authenticate yourself as the API limits viewing segment efforts in those that you participated in only!
+                        <ul class="collapsible" data-collapsible="accordion">
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">build</i>Setting up your Strava API access token</div>
+                                <div class="collapsible-body">
+                                    <p>To setup your Strava API access token, you have to go to <a href="http://strava.com">Strava's website </a> and head over to settings. Afterwards, click on the <em> My API Application </em> and add the application. Finally, collect the token and put it in the appropriate box.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">place</i>Getting your segment identification number</div>
+                                <div class="collapsible-body">
+                                    <p>This step is simple. Simply go to the segment that you wish to access, and copy the number after <em> segment/ </em> on the URL. </p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">book</i>Reading the data</div>
+                                <div class="collapsible-body"><p> The influence rating is determined based off of the magnitude of the wind vector and how it correlates to the displacement of the athlete. The stronger / larger the correlation, the more wind was an influencer.</p></div>
+                                </li> 
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
