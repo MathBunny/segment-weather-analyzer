@@ -15,6 +15,9 @@
         <script src="js/utility.js"> </script> 
     </head>
     <body>
+        <script>
+            $(".button-collapse").sideNav();
+        </script>
         <nav class="cyan darken-1">
             <div class="navbar-wrapped container">
                 <a href="http://horatiulazu.ca" class="brand-logo"> Segment Analysis </a>
@@ -40,15 +43,15 @@
                         <br>
                         <br>
                         <div class="input-field col l5 m3">
-                            <input placeholder="10112025" id="first_name" type="text" class="validate">
+                            <input placeholder="10112025" id="segmentID" type="text" class="validate">
                             <label for="first_name">Segment Identifier</label>
                         </div>
                         <div class="input-field col s5">
-                            <input placeholder="b6d69060589a4ebe5c4efbcb5069bf2d50224bf2" id="first_name" type="text" class="validate">
+                            <input placeholder="b6d69060589a4ebe5c4efbcb5069bf2d50224bf2" id="token" type="text" class="validate">
                             <label for="first_name">Authentication ID</label>
                         </div>
                         <br>
-                        <a class="waves-effect waves-light btn">Compute</a>
+                            <a class="waves-effect waves-light btn" onclick="ajaxRequest()">Compute</a>
                         <br>
                         <br>
                     </div>
@@ -104,5 +107,9 @@
                 </div>
             </div>
         </div>
+        <script>
+            $(".button-collapse").sideNav();
+            $('.collapsible').collapsible();
+        </script>
     </body>
 </html>
