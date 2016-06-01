@@ -1,8 +1,11 @@
 var ID = 10112025; //5661031
 var authentication = "b6d69060589a4ebe5c4efbcb5069bf2d50224bf2";
+var weatherKey = "81c978e8db7b136e4bf3c8988c2d90a6";
 
 function ajaxRequest(){
     console.log (document.getElementById('token').value);
+
+    /* This code figues out if the ID or authentication need to be updated */
     if (document.getElementById('segmentID').value != ""){
         ID = document.getElementById('segmentID').value;
         console.log(14468760552);
@@ -16,6 +19,9 @@ function ajaxRequest(){
         //console.log(data.entries[x]);
         var output = [];
         var start = data.entries[0].rank;
+
+        //var startCord = data.entries[0].start_latlng;
+        //console.log("Coordinate: " + startCord);
 
         for(var x = 0; x < data.entries.length; x++){
             output.push({
@@ -39,5 +45,15 @@ function ajaxRequest(){
         console.log(data);
     });
 }
+
+/* This method gets the weather information for a given lat, long and date! */
+/*function getWeatherInfo(lat, long, date){
+    $.getJSON( "https://api.forecast.io/forecast/" + weatherKey + "/" + lat + "," + long"," + date + "?units=ca", function (data) {
+        console.log(data);
+        console.log(data.windSpeed + " =Wind Speed");
+        console.log(data.windBearing + " =Wind Bearing");
+        return {windSpeed=data.windSpeed, windBearing=data.windBearing};
+    });
+} */
 
 //ajaxRequest();
