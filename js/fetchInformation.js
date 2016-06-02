@@ -42,7 +42,6 @@ function getLeaderboard(){
                 formattedTime: data.entries[x].start_date,
                 averageSpeed: getAverageSpeed(data.entries[x].elapsed_time, data.entries[x].distance)
             });
-            
         }
         getLocation(); //call everything since AJAX would mess everything up!
     });
@@ -61,6 +60,26 @@ function getLocation(){
     });
 }
 
+function calculateInfluenceRating(){
+    for(var q = 0; q < output.length; q++){
+        var wind = {};
+        //calculate the vector here? degrees -> vector?
+        wind.lat1 = 0;
+        wind.long1 = 0;
+        wind.lat2 = Math.cos(output[q].windBearing); //gets a value :p
+        wind.long2 = Math.sin(output[q].windBearing); //gets another value!
+
+        var effort = {}; //this is the effort object with all valid fields
+        effort.lat1 = output[q].startCoordinate[0];
+        effort.long1 = output[q].startCoordinate[1];
+        effort.lat2 = output[q].endCoordinate[0];
+        effort.long2 = output[q].endCoordinate[1];
+        effort.speed = output[q].averageSpeed;
+
+        getCorrelation(wind, effort);
+    }
+}
+
 function ajaxWeatherInformation(num){
      var temp = "https://crossorigin.me/https://api.forecast.io/forecast/81c978e8db7b136e4bf3c8988c2d90a6/43.40,79.24?units=ca";
      var old = "http://cors.io/?u=https://api.forecast.io/forecast/" + weatherKey + "/" + output[num].startCoordinate[0] + "," + output[num].startCoordinate[1] + "," + output[num].formattedTime + "?units=ca";
@@ -71,13 +90,13 @@ function ajaxWeatherInformation(num){
         done++;
         console.log("DONE: " + done + "| " + output.length);
         if (done == output.length){
+            calculateInfluenceRating();
             updateTable();
         }
     });
 }
 
 function getWeatherInformation(){
-    console.log("Name: " + output[9].name);
      for(var y = 0 ; y < output.length; y++){ //never use a for loop!!!!
          ajaxWeatherInformation(y);
     }
@@ -85,13 +104,14 @@ function getWeatherInformation(){
 
 /* This function updates the table. Remember to update! */
 function updateTable(){
-    $("#computed tr td").remove();
+    //$("#computed tr td").remove();
+    $("#computed tbody > td").remove();
     for(var x = 0; x < output.length; x++){
         $('#computed tr:last').after('<tr><td> ' + output[x].rank + '</td> <td>' + output[x].name + ' </td> <td> ' 
         + output[x].date + '</td><td>' + output[x].averageSpeed + 'km/h</td><td>'
         + output[x].windSpeed + ' km/h</td><td>' + convertToCardinal(output[x].windBearing) + '&deg;</td><td>'
          + longLatToCardinal(output[x].startCoordinate[0], output[x].startCoordinate[1],output[x].endCoordinate[0], output[x].endCoordinate[1]) 
-         + '</td> </tr>');
+         + '&deg;</td> </tr>');
     }
     //degrees = &deg;
 }

@@ -25,12 +25,15 @@ Vector.prototype.multiply = function(speed) {
   return new Vector(this.x * speed, this.y * speed);
 };
 
+function addVectors(vectorA, vectorB){
+    return new Vector(vectorA.x + vectorB.x, vectorA.y + vectorB.y);
+}
 
 /* displacement vector for the wind speed
    take into consideration the distance and the displacement distance ?? */
 
-function displacement(lat1, long1, lat2, long2, speed){
-    var xDiff = lat2 - la1;
+function displacementWind(lat1, long1, lat2, long2, speed){
+    var xDiff = lat2 - lat1;
     var yDiff = long2 - long1;
     var magnitude = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
     var unitVector = new Vector(xDiff/magnitude, yDiff/magnitude);
@@ -38,9 +41,40 @@ function displacement(lat1, long1, lat2, long2, speed){
     return unitVector;
 }
 
+function displacementEffort(lat1, long1, lat2, long2, speed){
+
+    var displacement = new Vector(lat2-lat1, long2-long1);
+    var magnitude = Math.sqrt(Math.pow(displacement.x, 2) + Math.pow(displacement.y, 2));
+    var unitVector = new Vector(magnitude.x/magnitude, magnitude.y/magnitude);
+    unitVector.multiply(speed);
+    return unitVector;
+}
+
 /* This method returns the correlation between the wind bearing and the effort */
 function getCorrelation(wind, effort){
-    var windVector = displacement(wind.lat1, wind.long1, wind.lat2, wind.long2, wind.speed);
+    var windVector = displacementWind(wind.lat1, wind.long1, wind.lat2, wind.long2, wind.speed);
+    var effortVector = displacementEffort(effort.lat1, effort.long1, effort.lat2, effort.long2, effort.speed);
+    var addedVector = addVectors(windVector, effortVector);
+    //this is the vectors added ... now what? check the diff?
+
+    if (effortVector.x > 0 && effortVector.y > 0){
+        //both +'ve!'
+        return windVector.x + windVector.y;
+
+    }
+    else if (effortVector.x < 0 && effortVector.y > 0){
+        return -windVector.x + windVector.y;
+    }
+    else if (effortVector.x > 0 && effortVector.y < 0){
+        return windVector.x - windVector.y;
+    }
+    else if (effortVector.x < 0 && effortVector.y < 0){
+        return -windVector.x - windVector.y;
+    }
+    else{
+        //error!
+        return -1;
+    }
 }
 
 function longLatToCardinal(lat1, long1, lat2, long2){
