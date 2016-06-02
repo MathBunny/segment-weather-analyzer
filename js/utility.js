@@ -1,7 +1,6 @@
 /* This class acts as the utility class for operations */
 var SPEED_MULTIPLIER = 0.1;
 //81c978e8db7b136e4bf3c8988c2d90a6
-
 //decimal degrees
 
 /* Converts time (s) and distance (m) to km/h! */
@@ -69,10 +68,8 @@ function getCorrelation(wind, effort){
     var addedVector = addVectors(windVector, effortVector);
     //this is the vectors added ... now what? check the diff?
 
-    if (effortVector.x > 0 && effortVector.y > 0){
-        //both +'ve!'
+    if (effortVector.x > 0 && effortVector.y > 0){//both +'ve!'
         return windVector.x + windVector.y;
-
     }
     else if (effortVector.x < 0 && effortVector.y > 0){
         return -windVector.x + windVector.y;
@@ -85,8 +82,6 @@ function getCorrelation(wind, effort){
     }
     else{
         console.log("error");
-        console.log(effortVector);
-        console.log(windVector);
         //error!
         return -1;
     }

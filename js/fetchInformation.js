@@ -1,19 +1,20 @@
 /* The purpose of these methods are to get information through AJAX requests 
     http://cors.io/?u=
-    https://crossorigin.me/
-*/
-var output = [];
-var influenceRating = [];
+    https://crossorigin.me/*/
+
+var output = []; //This is the output array holding an array of objects
+var influenceRating = []; //These are the influence ratings
 var ID = 10112025; //5661031
-var authentication = "b6d69060589a4ebe5c4efbcb5069bf2d50224bf2";
-var weatherKey = "81c978e8db7b136e4bf3c8988c2d90a6";
-var done = 0;
+var authentication = "b6d69060589a4ebe5c4efbcb5069bf2d50224bf2"; //authentication for Strava
+var weatherKey = "81c978e8db7b136e4bf3c8988c2d90a6"; //weather key authentication for Dark Sky Forecast API V2
+var done = 0; //the number done processing AJAX
 
 function ajaxRequest(){
     done = 0;
     update();
     output = [];
     influenceRating = [];
+    $('.determinate').css('width', '0%');
 }
 
 function update(){
@@ -26,6 +27,7 @@ function update(){
 }
 
 function updateAccess(){
+    $('.determinate').css('width', '10%');
     if (document.getElementById('segmentID').value != ""){
         ID = document.getElementById('segmentID').value;
     }
@@ -34,6 +36,7 @@ function updateAccess(){
     }
 }
 
+/* This method gets the leaderboard */
 function getLeaderboard(){
     $.getJSON("https://www.strava.com/api/v3/segments/" + ID + "/leaderboard?&access_token=" + authentication + "&callback=?", function (data) {
         var start = data.entries[0].rank;
@@ -46,6 +49,7 @@ function getLeaderboard(){
                 averageSpeed: getAverageSpeed(data.entries[x].elapsed_time, data.entries[x].distance)
             });
         }
+        $('.determinate').css('width', '20%');
         getLocation(); //call everything since AJAX would mess everything up!
     });
 }
@@ -59,6 +63,7 @@ function getLocation(){
             output[x].endCoordinate = splitIntoTokens(data.end_latlng);
             output[x].elevation = data.average_grade;
         }
+        $('.determinate').css('width', '30%');
         getWeatherInformation();
     });
 }
@@ -87,6 +92,7 @@ function calculateInfluenceRating(){
 
         influenceRating.push(getCorrelation(wind, effort));
     }
+    $('.determinate').css('width', '90%');
 }
 
 function ajaxWeatherInformation(num){
@@ -99,6 +105,7 @@ function ajaxWeatherInformation(num){
         done++;
         console.log("DONE: " + done + "| " + output.length);
         if (done == output.length){
+            $('.determinate').css('width', '80%');
             calculateInfluenceRating();
             updateTable();
         }
@@ -123,5 +130,6 @@ function updateTable(){
          + '&deg;</td><td>'
          + parseFloat(-influenceRating[x]).toFixed(2) + '</td> </tr>'); //- influence?
     }
+    $('.determinate').css('width', '100%');
     //degrees = &deg;
 }
