@@ -11,7 +11,8 @@
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
         <title> Strava Segment Weather Analysis </title>
-        <script src="js/ajaxRequest.js"> </script>
+        <!-- <script src="js/ajaxRequest.js"> </script> -->
+        <script src="js/fetchInformation.js"> </script>
         <script src="js/utility.js"> </script> 
     </head>
     <body>
@@ -66,8 +67,9 @@
                                     <th data-field="id">Athlete Name</th>
                                     <th data-field="name">Date</th>
                                     <th data-field="price">Speed</th>
-                                    <th data-field="price">Wind Direction</th>
-                                    <th data-field="price">Influence Rating</th>
+                                    <th data-field="price">Wind Speed</th>
+                                    <th data-field="price">Wind Bearing</th>
+                                    <th data-field="price">Segment Bearing</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -107,6 +109,16 @@
                 </div>
             </div>
         </div>
+         <footer class="page-footer cyan darken-1">
+          <div class="footer-copyright">
+            <div class="container">
+            © 2016 Horatiu Lazu
+            <a class="grey-text text-lighten-4 right" href="#!"></a>
+            </div>
+          </div>
+        </footer>
+            
+
         <script>
             $(".button-collapse").sideNav();
             $('.collapsible').collapsible();
