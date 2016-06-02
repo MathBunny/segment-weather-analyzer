@@ -1,5 +1,5 @@
 /* This class acts as the utility class for operations */
-
+var SPEED_MULTIPLIER = 0.1;
 //81c978e8db7b136e4bf3c8988c2d90a6
 
 //decimal degrees
@@ -29,6 +29,10 @@ function addVectors(vectorA, vectorB){
     return new Vector(vectorA.x + vectorB.x, vectorA.y + vectorB.y);
 }
 
+function multiplySpeed(vectorA, speed){
+    return new Vector(vectorA.x * speed, vectorA.y * speed);
+}
+
 /* displacement vector for the wind speed
    take into consideration the distance and the displacement distance ?? */
 
@@ -37,7 +41,9 @@ function displacementWind(lat1, long1, lat2, long2, speed){
     var yDiff = long2 - long1;
     var magnitude = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
     var unitVector = new Vector(xDiff/magnitude, yDiff/magnitude);
-    unitVector.multiply(speed);
+    console.log("1+ " + unitVector.x + " " + speed);
+    unitVector = multiplySpeed(unitVector, speed);
+    console.log("2+ " + unitVector.x);
     return unitVector;
 }
 
@@ -45,14 +51,20 @@ function displacementEffort(lat1, long1, lat2, long2, speed){
 
     var displacement = new Vector(lat2-lat1, long2-long1);
     var magnitude = Math.sqrt(Math.pow(displacement.x, 2) + Math.pow(displacement.y, 2));
-    var unitVector = new Vector(magnitude.x/magnitude, magnitude.y/magnitude);
-    unitVector.multiply(speed);
-    return unitVector;
+    var unitVector = new Vector(displacement.x/magnitude, displacement.y/magnitude);
+    //console.log("unit:" + speed);
+    //console.log(unitVector);
+
+    return unitVector.multiply(speed);
 }
 
 /* This method returns the correlation between the wind bearing and the effort */
 function getCorrelation(wind, effort){
+    wind.speed *= SPEED_MULTIPLIER;
+    effort.speed *= SPEED_MULTIPLIER;
     var windVector = displacementWind(wind.lat1, wind.long1, wind.lat2, wind.long2, wind.speed);
+    console.log("Wind:" + wind);
+    console.log(windVector);
     var effortVector = displacementEffort(effort.lat1, effort.long1, effort.lat2, effort.long2, effort.speed);
     var addedVector = addVectors(windVector, effortVector);
     //this is the vectors added ... now what? check the diff?
@@ -72,6 +84,9 @@ function getCorrelation(wind, effort){
         return -windVector.x - windVector.y;
     }
     else{
+        console.log("error");
+        console.log(effortVector);
+        console.log(windVector);
         //error!
         return -1;
     }

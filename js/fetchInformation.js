@@ -3,6 +3,7 @@
     https://crossorigin.me/
 */
 var output = [];
+var influenceRating = [];
 var ID = 10112025; //5661031
 var authentication = "b6d69060589a4ebe5c4efbcb5069bf2d50224bf2";
 var weatherKey = "81c978e8db7b136e4bf3c8988c2d90a6";
@@ -11,6 +12,8 @@ var done = 0;
 function ajaxRequest(){
     done = 0;
     update();
+    output = [];
+    influenceRating = [];
 }
 
 function update(){
@@ -66,8 +69,14 @@ function calculateInfluenceRating(){
         //calculate the vector here? degrees -> vector?
         wind.lat1 = 0;
         wind.long1 = 0;
-        wind.lat2 = Math.cos(output[q].windBearing); //gets a value :p
-        wind.long2 = Math.sin(output[q].windBearing); //gets another value!
+        if (q == 0)
+            console.log("YOO: " + Math.cos(2 * Math.PI - (output[q].windBearing * Math.PI/180)-Math.PI/2) + " " + output[q].windBearing);
+        wind.lat2 = Math.cos(2 * Math.PI - (output[q].windBearing * Math.PI/180)-Math.PI/2);
+        wind.long2 = Math.sin(2 * Math.PI - (output[q].windBearing * Math.PI/180)-Math.PI/2);
+        //wind.lat2 = Math.cos(output[q].windBearing); //gets a value :p
+        //wind.long2 = Math.sin(output[q].windBearing); //gets another value!
+        wind.id = q;
+        wind.speed = output[q].windSpeed;
 
         var effort = {}; //this is the effort object with all valid fields
         effort.lat1 = output[q].startCoordinate[0];
@@ -76,7 +85,7 @@ function calculateInfluenceRating(){
         effort.long2 = output[q].endCoordinate[1];
         effort.speed = output[q].averageSpeed;
 
-        getCorrelation(wind, effort);
+        influenceRating.push(getCorrelation(wind, effort));
     }
 }
 
@@ -104,14 +113,15 @@ function getWeatherInformation(){
 
 /* This function updates the table. Remember to update! */
 function updateTable(){
-    //$("#computed tr td").remove();
-    $("#computed tbody > td").remove();
+    $("#computed tr td").remove();
+    //$("#computed tbody > td").remove();
     for(var x = 0; x < output.length; x++){
         $('#computed tr:last').after('<tr><td> ' + output[x].rank + '</td> <td>' + output[x].name + ' </td> <td> ' 
         + output[x].date + '</td><td>' + output[x].averageSpeed + 'km/h</td><td>'
         + output[x].windSpeed + ' km/h</td><td>' + convertToCardinal(output[x].windBearing) + '&deg;</td><td>'
          + longLatToCardinal(output[x].startCoordinate[0], output[x].startCoordinate[1],output[x].endCoordinate[0], output[x].endCoordinate[1]) 
-         + '&deg;</td> </tr>');
+         + '&deg;</td><td>'
+         + parseFloat(-influenceRating[x]).toFixed(2) + '</td> </tr>'); //- influence?
     }
     //degrees = &deg;
 }
