@@ -63,12 +63,13 @@ function getLocation(){
 
 function ajaxWeatherInformation(num){
      var temp = "https://crossorigin.me/https://api.forecast.io/forecast/81c978e8db7b136e4bf3c8988c2d90a6/43.40,79.24?units=ca";
-     var old = "https://crossorigin.me/https://api.forecast.io/forecast/" + weatherKey + "/" + output[num].startCoordinate[0] + "," + output[num].startCoordinate[1] + "," + output[num].formattedTime + "?units=ca";
+     var old = "http://cors.io/?u=https://api.forecast.io/forecast/" + weatherKey + "/" + output[num].startCoordinate[0] + "," + output[num].startCoordinate[1] + "," + output[num].formattedTime + "?units=ca";
      console.log(old);
      $.getJSON(old, function (info) {
         output[num].windSpeed = info.hourly.data[12].windSpeed; //fix so that you get the right hour!
         output[num].windBearing = info.hourly.data[12].windBearing;
         done++;
+        console.log("DONE: " + done + "| " + output.length);
         if (done == output.length){
             updateTable();
         }
@@ -80,10 +81,6 @@ function getWeatherInformation(){
      for(var y = 0 ; y < output.length; y++){ //never use a for loop!!!!
          ajaxWeatherInformation(y);
     }
-}
-
-function calculateInfluenceRating(){
-    return -1;
 }
 
 /* This function updates the table. Remember to update! */

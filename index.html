@@ -39,8 +39,33 @@
                 <div class="col s12">
                     <!--<div class="card-panel teal lighten-4"> -->
                     <div class="card-panel">
-                        <h5 class="cyan-text"> Strava Segment Weather Analysis </h5>
-                        Welcome! The purpose of the Strava Segment Weather Analysis web application is to allow the user to determine if wind played an important factor in segments. Follow the instructions below on computing it yourself.
+                        <h5 class="cyan-text"> Instructions </h5>
+                        Welcome! If you are new to this web app, follow the instructions below. Due to Strava API V3, you need to authenticate yourself as the API limits viewing segment efforts in those that you participated in only.
+                        <ul class="collapsible" data-collapsible="accordion">
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">build</i>Setting up your Strava API access token</div>
+                                <div class="collapsible-body">
+                                    <p>To setup your Strava API access token, you have to go to <a href="http://strava.com" target="_blank">Strava's website</a> and head over to settings. Afterwards, click on the <em> My API Application </em> and add this application. Finally, collect the token and put it in the appropriate box.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">place</i>Getting your segment identification number</div>
+                                <div class="collapsible-body">
+                                    <p>This step is simple - just go to the segment that you wish to access, and copy the number after <em> segments/ </em> on the URL. For example, in the following URL: <em> https://www.strava.com/segments/5661031?filter=overall </em>, the number we would paste would be 5661031.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">book</i>Reading the data</div>
+                                <div class="collapsible-body"><p> The influence rating is determined based off of the magnitude of the wind vector and how it correlates to the displacement of the athlete. The stronger / larger the correlation, the more wind was an influencer.</p></div>
+                            </li> 
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col s12">
+                    <div class="card-panel">
+                        <h5 class="cyan-text"> Data Input </h5>
+                        Fill out the fields below to fetch information that is important to you.
                         <br>
                         <br>
                         <div class="input-field col l5 m3">
@@ -72,54 +97,22 @@
                                     <th data-field="price">Segment Bearing</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <!-- <tr>
-                                    <td>Alvin</td>
-                                    <td>Eclair</td>
-                                    <td>$0.87</td>
-                                </tr> -->
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
-                <div class="col s12">
-                    <!--<div class="card-panel teal lighten-4"> -->
-                    <div class="card-panel">
-                        <h5 class="cyan-text"> Instructions </h5>
-                        Follow the instructions carefully. Due to Strava API V3, you need to authenticate yourself as the API limits viewing segment efforts in those that you participated in only!
-                        <ul class="collapsible" data-collapsible="accordion">
-                            <li>
-                                <div class="collapsible-header"><i class="material-icons">build</i>Setting up your Strava API access token</div>
-                                <div class="collapsible-body">
-                                    <p>To setup your Strava API access token, you have to go to <a href="http://strava.com">Strava's website </a> and head over to settings. Afterwards, click on the <em> My API Application </em> and add this application. Finally, collect the token and put it in the appropriate box.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="collapsible-header"><i class="material-icons">place</i>Getting your segment identification number</div>
-                                <div class="collapsible-body">
-                                    <p>This step is simple - just go to the segment that you wish to access, and copy the number after <em> segments/ </em> on the URL. For example, in the following URL: <em> https://www.strava.com/segments/5661031?filter=overall </em>, the number we would paste would be 5661031.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="collapsible-header"><i class="material-icons">book</i>Reading the data</div>
-                                <div class="collapsible-body"><p> The influence rating is determined based off of the magnitude of the wind vector and how it correlates to the displacement of the athlete. The stronger / larger the correlation, the more wind was an influencer.</p></div>
-                            </li> 
-                        </ul>
-                    </div>
-                </div>
+                
             </div>
         </div>
          <footer class="page-footer cyan darken-1">
           <div class="footer-copyright">
-            <div class="container">
-            © 2016 Horatiu Lazu
+            <div class="container"> © 2016 Horatiu Lazu
             <a class="grey-text text-lighten-4 right" href="#!"></a>
             </div>
           </div>
         </footer>
-            
-
         <script>
+            //ajaxRequest();
             $(".button-collapse").sideNav();
             $('.collapsible').collapsible();
         </script>

@@ -1,3 +1,5 @@
+/* This class acts as the utility class for operations */
+
 //81c978e8db7b136e4bf3c8988c2d90a6
 
 //decimal degrees
@@ -9,11 +11,36 @@ function getAverageSpeed(time, distance){
     return parseFloat(distance/time).toFixed(1);
 }
 
-/* displacement vector
+function Vector(x, y){
+    this.x = x;
+    this.y = y;
+}
+
+/* Add the two vectors! */
+Vector.prototype.plus = function(other) {
+  return new Vector(this.x + other.x, this.y + other.y);
+};
+
+Vector.prototype.multiply = function(speed) {
+  return new Vector(this.x * speed, this.y * speed);
+};
+
+
+/* displacement vector for the wind speed
    take into consideration the distance and the displacement distance ?? */
 
-function displacement(lat, long){
+function displacement(lat1, long1, lat2, long2, speed){
+    var xDiff = lat2 - la1;
+    var yDiff = long2 - long1;
+    var magnitude = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
+    var unitVector = new Vector(xDiff/magnitude, yDiff/magnitude);
+    unitVector.multiply(speed);
+    return unitVector;
+}
 
+/* This method returns the correlation between the wind bearing and the effort */
+function getCorrelation(wind, effort){
+    var windVector = displacement(wind.lat1, wind.long1, wind.lat2, wind.long2, wind.speed);
 }
 
 function longLatToCardinal(lat1, long1, lat2, long2){
