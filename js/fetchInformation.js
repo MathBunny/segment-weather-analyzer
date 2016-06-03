@@ -8,6 +8,7 @@ var ID = 10112025; //5661031
 var authentication = "b6d69060589a4ebe5c4efbcb5069bf2d50224bf2"; //authentication for Strava
 var weatherKey = "81c978e8db7b136e4bf3c8988c2d90a6"; //weather key authentication for Dark Sky Forecast API V2
 var done = 0; //the number done processing AJAX
+var path;
 
 function ajaxRequest(){
     done = 0;
@@ -56,6 +57,12 @@ function getLeaderboard(){
 
 function getLocation(){
     $.getJSON("https://www.strava.com/api/v3/segments/" + ID + "?&access_token=" + authentication + "&callback=?", function (data) {
+        
+        latitude = splitIntoTokens(data.start_latlng)[0];
+        longitude = splitIntoTokens(data.start_latlng)[1];
+        path = data.map; //splitIntoTokens(data.start_latlng)[0], splitIntoTokens(data.start_latlng)[1], data.map
+        initialize();
+
         for(var x = 0; x < output.length; x++){
             output[x].startCoordinate = splitIntoTokens(data.start_latlng);
             //console.log(output[x].startCoordinate[0]);

@@ -15,7 +15,7 @@ function Vector(x, y){
     this.y = y;
 }
 
-/* Add the two vectors! */
+/* Series of vector helper methods */
 Vector.prototype.plus = function(other) {
   return new Vector(this.x + other.x, this.y + other.y);
 };
