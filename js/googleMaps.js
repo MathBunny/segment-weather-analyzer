@@ -1,7 +1,7 @@
 var initialLatitude;
 var initialLongitude;
 
-var latitude;
+var latitude; //move over to parameter pass
 var longitude;
 var path;
 
