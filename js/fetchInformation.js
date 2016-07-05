@@ -10,7 +10,8 @@ var weatherKey = "81c978e8db7b136e4bf3c8988c2d90a6"; //weather key authenticatio
 var done = 0; //the number done processing AJAX
 var path;
 
-function ajaxRequest(){
+/* This method resets everything */
+function ajaxRequest(){ 
     done = 0;
     update();
     output = [];
@@ -18,6 +19,7 @@ function ajaxRequest(){
     $('.determinate').css('width', '0%');
 }
 
+/* This method calls all of the other methods to repopulate the table */
 function update(){
     updateAccess();
     getLeaderboard();
@@ -27,6 +29,7 @@ function update(){
     console.log("DONE!");
 }
 
+/* This method reassigns the access ID and authentication */
 function updateAccess(){
     $('.determinate').css('width', '10%');
     if (document.getElementById('segmentID').value != ""){
@@ -55,6 +58,7 @@ function getLeaderboard(){
     });
 }
 
+/* This method gets the path as a summary polyline and basic geographic location */
 function getLocation(){
     $.getJSON("https://www.strava.com/api/v3/segments/" + ID + "?&access_token=" + authentication + "&callback=?", function (data) {
         
@@ -75,10 +79,10 @@ function getLocation(){
     });
 }
 
+/* This method calculates the basic influence rating through manipulation of vectors */
 function calculateInfluenceRating(){
     for(var q = 0; q < output.length; q++){
-        var wind = {};
-        //calculate the vector here? degrees -> vector?
+        var wind = {}; //calculate the vector here? degrees -> vector?
         wind.lat1 = 0;
         wind.long1 = 0;
         if (q == 0)
@@ -102,9 +106,10 @@ function calculateInfluenceRating(){
     $('.determinate').css('width', '90%');
 }
 
+/* This method fetches the weather information from the API and calls to update the table */
 function ajaxWeatherInformation(num){
      var temp = "https://crossorigin.me/https://api.forecast.io/forecast/81c978e8db7b136e4bf3c8988c2d90a6/43.40,79.24?units=ca";
-     var old = "http://cors.io/?u=https://api.forecast.io/forecast/" + weatherKey + "/" + output[num].startCoordinate[0] + "," + output[num].startCoordinate[1] + "," + output[num].formattedTime + "?units=ca";
+     var old = "https://crossorigin.me/https://api.forecast.io/forecast/" + weatherKey + "/" + output[num].startCoordinate[0] + "," + output[num].startCoordinate[1] + "," + output[num].formattedTime + "?units=ca";
      console.log(old);
      $.getJSON(old, function (info) {
         output[num].windSpeed = info.hourly.data[12].windSpeed; //fix so that you get the right hour!
@@ -119,13 +124,14 @@ function ajaxWeatherInformation(num){
     });
 }
 
+/* THis method calls in sequential order the get weather information */
 function getWeatherInformation(){
      for(var y = 0 ; y < output.length; y++){ //never use a for loop!!!!
          ajaxWeatherInformation(y);
     }
 }
 
-/* This function updates the table. Remember to update! */
+/* This function updates the table using jQuery */
 function updateTable(){
     $("#computed tr td").remove();
     //$("#computed tbody > td").remove();

@@ -87,6 +87,7 @@ function getCorrelation(wind, effort){
     }
 }
 
+/* Converts from longitude/latitude to cardinal directions */
 function longLatToCardinal(lat1, long1, lat2, long2){
     margin = Math.PI/90; // 2 degree tolerance for cardinal directions
     o = lat1 - lat2;
@@ -114,6 +115,7 @@ function longLatToCardinal(lat1, long1, lat2, long2){
     return "error";
 }
 
+/* Converts to cardinal */
 function convertToCardinal(q){ 
     s=String;
     s.prototype.a=s.prototype.replace;
@@ -127,6 +129,7 @@ function convertToCardinal(q){
     return(k)
 }
 
+/* Splits information into tokens */
 function splitIntoTokens(strIn){
     var str = strIn.toString();
     return [str.substring(0, str.indexOf(",")-1), str.substring(str.indexOf(",")+1, str.length-1)];

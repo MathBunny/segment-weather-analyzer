@@ -1,10 +1,11 @@
-var initialLatitude;
+var initialLatitude;  //useless?
 var initialLongitude;
 
 var latitude; //move over to parameter pass
 var longitude;
 var path;
 
+/* This method initializes the Google maps and outputs it on the page */
 function initialize() {
     var myLatlng = new google.maps.LatLng(latitude, longitude);
     var myOptions = {
@@ -28,6 +29,7 @@ function initialize() {
     });
 }
 
+/* This method decodes the map from the summary polyline */
 function decodeLevels(encodedLevelsString) {
     var decodedLevels = [];
 
