@@ -1,7 +1,5 @@
 /* This class acts as the utility class for operations */
-var SPEED_MULTIPLIER = 0.1;
-//81c978e8db7b136e4bf3c8988c2d90a6
-//decimal degrees
+var SPEED_MULTIPLIER = 0.1; //relationship between speed and the wind vector's magnitude
 
 /* Converts time (s) and distance (m) to km/h! */
 function getAverageSpeed(time, distance){
@@ -10,6 +8,7 @@ function getAverageSpeed(time, distance){
     return parseFloat(distance/time).toFixed(1);
 }
 
+/* Class constructor for a vector */
 function Vector(x, y){
     this.x = x;
     this.y = y;
@@ -32,28 +31,22 @@ function multiplySpeed(vectorA, speed){
     return new Vector(vectorA.x * speed, vectorA.y * speed);
 }
 
-/* displacement vector for the wind speed
-   take into consideration the distance and the displacement distance ?? */
+/* Displacement vector for the wind speed; take into consideration the distance and the displacement distance */
 
 function displacementWind(lat1, long1, lat2, long2, speed){
     var xDiff = lat2 - lat1;
     var yDiff = long2 - long1;
     var magnitude = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
     var unitVector = new Vector(xDiff/magnitude, yDiff/magnitude);
-    console.log("1+ " + unitVector.x + " " + speed);
     unitVector = multiplySpeed(unitVector, speed);
-    console.log("2+ " + unitVector.x);
     return unitVector;
 }
 
+/* This calculates the effort made in displacement */
 function displacementEffort(lat1, long1, lat2, long2, speed){
-
     var displacement = new Vector(lat2-lat1, long2-long1);
     var magnitude = Math.sqrt(Math.pow(displacement.x, 2) + Math.pow(displacement.y, 2));
     var unitVector = new Vector(displacement.x/magnitude, displacement.y/magnitude);
-    //console.log("unit:" + speed);
-    //console.log(unitVector);
-
     return unitVector.multiply(speed);
 }
 
@@ -62,13 +55,10 @@ function getCorrelation(wind, effort){
     wind.speed *= SPEED_MULTIPLIER;
     effort.speed *= SPEED_MULTIPLIER;
     var windVector = displacementWind(wind.lat1, wind.long1, wind.lat2, wind.long2, wind.speed);
-    console.log("Wind:" + wind);
-    console.log(windVector);
     var effortVector = displacementEffort(effort.lat1, effort.long1, effort.lat2, effort.long2, effort.speed);
     var addedVector = addVectors(windVector, effortVector);
-    //this is the vectors added ... now what? check the diff?
 
-    if (effortVector.x > 0 && effortVector.y > 0){//both +'ve!'
+    if (effortVector.x > 0 && effortVector.y > 0){
         return windVector.x + windVector.y;
     }
     else if (effortVector.x < 0 && effortVector.y > 0){
@@ -81,8 +71,6 @@ function getCorrelation(wind, effort){
         return -windVector.x - windVector.y;
     }
     else{
-        console.log("error");
-        //error!
         return -1;
     }
 }
@@ -135,7 +123,7 @@ function splitIntoTokens(strIn){
     return [str.substring(0, str.indexOf(",")-1), str.substring(str.indexOf(",")+1, str.length-1)];
 }
 
-//Convert geographic coordinate to decimal degrees
+/* Convert geographic coordinate to decimal degrees */
 function convertFromDMS(str){
     return str.D + (str.M)/60 + str.S/3600;
 }

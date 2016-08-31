@@ -15,7 +15,6 @@ function initialize() {
     }
 
     var map = new google.maps.Map(document.getElementById("map"), myOptions);
-    console.log(path);
     var decodedPath = google.maps.geometry.encoding.decodePath(path.polyline);
     var decodedLevels = decodeLevels("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 
