@@ -8,7 +8,7 @@ var ID = 10112025; //5661031
 var authentication = "b6d69060589a4ebe5c4efbcb5069bf2d50224bf2"; //authentication for Strava
 var weatherKey = "81c978e8db7b136e4bf3c8988c2d90a6"; //weather key authentication for Dark Sky Forecast API V2
 var done = 0; //the number done processing AJAX
-var path;
+var path; //used for Google Maps polyline
 
 /* This method resets everything */
 function ajaxRequest(){ 

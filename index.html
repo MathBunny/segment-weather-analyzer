@@ -10,13 +10,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
-        <!--Import Google Icon Font-->
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
         <link rel="stylesheet" href="css/styles.css">
         <title> Strava Segment Weather Analysis </title>
-        <!-- <script src="js/ajaxRequest.js"> </script> -->
         <script src="js/fetchInformation.js"> </script>
         <script src="js/utility.js"> </script> 
         <script src="js/googleMaps.js"> </script> 
@@ -41,10 +38,9 @@
         <div class="container">
             <div class = "row">
                 <div class="col s12">
-                    <!--<div class="card-panel teal lighten-4"> -->
                     <div class="card-panel">
                         <h5 class="cyan-text"> Instructions </h5>
-                        Welcome! If you are new to this web app, follow the instructions below. Due to Strava API V3, you need to authenticate yourself as the API limits viewing segment efforts in those that you participated in only.
+                        Welcome! If you are new to this web app, follow the instructions below. To use this app, you need to authenticate yourself to view segment efforts in those that you participated in.
                         <ul class="collapsible" data-collapsible="accordion">
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">build</i>Setting up your Strava API access token</div>
@@ -75,8 +71,7 @@
                     <div class="card-panel">
                         <h5 class="cyan-text"> Data Input </h5>
                         Fill out the fields below to fetch information that is important to you.
-                        <br>
-                        <br>
+                        <br><br>
                         <div class="input-field col l5 m3">
                             <input placeholder="10112025" id="segmentID" type="text" class="validate">
                             <label for="first_name">Segment Identifier</label>
@@ -87,8 +82,7 @@
                         </div>
                         <br>
                             <a class="waves-effect waves-light btn" onclick="ajaxRequest()">Compute</a>
-                        <br>
-                        <br>
+                        <br><br>
                     </div>
                 </div>
                 <div class="col s12">
