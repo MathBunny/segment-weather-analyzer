@@ -23,10 +23,6 @@ function ajaxRequest(){
 function update(){
     updateAccess();
     getLeaderboard();
-    //getLocation();
-    //getWeatherInformation();
-    //updateTable();
-    console.log("DONE!");
 }
 
 /* This method reassigns the access ID and authentication */
@@ -54,7 +50,7 @@ function getLeaderboard(){
             });
         }
         $('.determinate').css('width', '20%');
-        getLocation(); //call everything since AJAX would mess everything up!
+        getLocation(); 
     });
 }
 
@@ -69,8 +65,6 @@ function getLocation(){
 
         for(var x = 0; x < output.length; x++){
             output[x].startCoordinate = splitIntoTokens(data.start_latlng);
-            //console.log(output[x].startCoordinate[0]);
-            //console.log("DATA:" + splitIntoTokens(data.start_latlng));
             output[x].endCoordinate = splitIntoTokens(data.end_latlng);
             output[x].elevation = data.average_grade;
         }
@@ -85,12 +79,8 @@ function calculateInfluenceRating(){
         var wind = {}; //calculate the vector here? degrees -> vector?
         wind.lat1 = 0;
         wind.long1 = 0;
-        if (q == 0)
-            console.log("YOO: " + Math.cos(2 * Math.PI - (output[q].windBearing * Math.PI/180)-Math.PI/2) + " " + output[q].windBearing);
         wind.lat2 = Math.cos(2 * Math.PI - (output[q].windBearing * Math.PI/180)-Math.PI/2);
         wind.long2 = Math.sin(2 * Math.PI - (output[q].windBearing * Math.PI/180)-Math.PI/2);
-        //wind.lat2 = Math.cos(output[q].windBearing); //gets a value :p
-        //wind.long2 = Math.sin(output[q].windBearing); //gets another value!
         wind.id = q;
         wind.speed = output[q].windSpeed;
 
@@ -110,12 +100,10 @@ function calculateInfluenceRating(){
 function ajaxWeatherInformation(num){
      var temp = "https://crossorigin.me/https://api.forecast.io/forecast/81c978e8db7b136e4bf3c8988c2d90a6/43.40,79.24?units=ca";
      var old = "https://crossorigin.me/https://api.forecast.io/forecast/" + weatherKey + "/" + output[num].startCoordinate[0] + "," + output[num].startCoordinate[1] + "," + output[num].formattedTime + "?units=ca";
-     console.log(old);
      $.getJSON(old, function (info) {
         output[num].windSpeed = info.hourly.data[12].windSpeed; //fix so that you get the right hour!
         output[num].windBearing = info.hourly.data[12].windBearing;
         done++;
-        console.log("DONE: " + done + "| " + output.length);
         if (done == output.length){
             $('.determinate').css('width', '80%');
             calculateInfluenceRating();
@@ -126,7 +114,7 @@ function ajaxWeatherInformation(num){
 
 /* THis method calls in sequential order the get weather information */
 function getWeatherInformation(){
-     for(var y = 0 ; y < output.length; y++){ //never use a for loop!!!!
+    for(var y = 0 ; y < output.length; y++){
          ajaxWeatherInformation(y);
     }
 }
@@ -134,7 +122,6 @@ function getWeatherInformation(){
 /* This function updates the table using jQuery */
 function updateTable(){
     $("#computed tr td").remove();
-    //$("#computed tbody > td").remove();
     for(var x = 0; x < output.length; x++){
         $('#computed tr:last').after('<tr><td> ' + output[x].rank + '</td> <td>' + output[x].name + ' </td> <td> ' 
         + output[x].date + '</td><td>' + output[x].averageSpeed + 'km/h</td><td>'
@@ -144,5 +131,4 @@ function updateTable(){
          + parseFloat(-influenceRating[x]).toFixed(2) + '</td> </tr>'); //- influence?
     }
     $('.determinate').css('width', '100%');
-    //degrees = &deg;
 }
