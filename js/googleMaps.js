@@ -1,7 +1,9 @@
-var initialLatitude;  //useless?
-var initialLongitude;
+/** This file handles all Google Maps oriented activities. */
 
-var latitude; //move over to parameter pass
+var initialLatitude;
+var initialLongitude; 
+
+var latitude; 
 var longitude;
 var path;
 
