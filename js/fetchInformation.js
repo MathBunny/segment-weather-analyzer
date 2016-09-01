@@ -9,6 +9,7 @@ var authentication = "b6d69060589a4ebe5c4efbcb5069bf2d50224bf2"; //authenticatio
 var weatherKey = "81c978e8db7b136e4bf3c8988c2d90a6"; //weather key authentication for Dark Sky Forecast API V2
 var done = 0; //the number done processing AJAX
 var path; //used for Google Maps polyline
+var number;
 
 /* This method resets everything */
 function ajaxRequest(){ 
@@ -96,11 +97,35 @@ function calculateInfluenceRating(){
     $('.determinate').css('width', '90%');
 }
 
+
+
+
 /* This method fetches the weather information from the API and calls to update the table */
 function ajaxWeatherInformation(num){
      var temp = "https://crossorigin.me/https://api.forecast.io/forecast/81c978e8db7b136e4bf3c8988c2d90a6/43.40,79.24?units=ca";
      var old = "https://crossorigin.me/https://api.forecast.io/forecast/" + weatherKey + "/" + output[num].startCoordinate[0] + "," + output[num].startCoordinate[1] + "," + output[num].formattedTime + "?units=ca";
-     $.getJSON(old, function (info) {
+     var standard = "https://api.forecast.io/forecast/" + weatherKey + "/" + output[num].startCoordinate[0] + "," + output[num].startCoordinate[1] + "," + output[num].formattedTime + "?units=ca";
+     number = num;
+     $.ajax({
+        url: standard,
+        dataType: "jsonp",
+        error: function(xhr, status, error) {
+            alert(error.message);
+        },
+        success: jsonpCallback
+      });
+
+     function jsonpCallback(info){
+        output[num].windSpeed = info.hourly.data[12].windSpeed; //fix so that you get the right hour!
+        output[num].windBearing = info.hourly.data[12].windBearing;
+        done++;
+        if (done == output.length){
+            $('.determinate').css('width', '80%');
+            calculateInfluenceRating();
+            updateTable();
+      }
+}
+     /*$.getJSON(old, function (info) {
         output[num].windSpeed = info.hourly.data[12].windSpeed; //fix so that you get the right hour!
         output[num].windBearing = info.hourly.data[12].windBearing;
         done++;
@@ -109,7 +134,7 @@ function ajaxWeatherInformation(num){
             calculateInfluenceRating();
             updateTable();
         }
-    });
+    });*/
 }
 
 /* THis method calls in sequential order the get weather information */
