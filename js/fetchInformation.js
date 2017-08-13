@@ -4,7 +4,7 @@
 
 var output = []; //This is the output array holding an array of objects
 var influenceRating = []; //These are the influence ratings
-var ID = 10112025; //5661031
+var ID = 10112025; //Sample segment ID
 var authentication = undefined; //authentication for Strava
 var weatherKey = undefined; //weather key authentication for Dark Sky Forecast API V2
 var done = 0; //the number done processing AJAX
