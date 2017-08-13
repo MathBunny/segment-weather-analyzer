@@ -3,10 +3,6 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="This site analyzes segment efforts and compares how much wind helped athletes on the leaderboard.">
-        <meta name="author" content="Horatiu Lazu">
-        <meta name="keywords" content="Strava,Weather,Analysis,Wind,Segment,KOM">
-
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
@@ -26,7 +22,6 @@
                 <a href="#" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class = "right hide-on-med-and-down">
                     <li> <a href="index.html"> Home </a> </li>
-                    <li> <a href="legacy/index.html"> Legacy </a> </li>
                     <li> <a href="about/index.html"> About </a> </li>
                 </ul>
                 <ul class="side-nav" id = "mobile">
@@ -42,7 +37,7 @@
                 <div class="col s12">
                     <div class="card-panel">
                         <h5 class="cyan-text"> Instructions </h5>
-                        Welcome! To use this app, you need to authenticate yourself to view segment efforts in those that you participated in. You can view the old version of the web app under legacy.
+                        Welcome! This app is <strong> deprecated </strong>, please visit the <a href="http://stravawindanalysis.com"> new site</a>.
                         <ul class="collapsible" data-collapsible="accordion">
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">build</i>Setting up your Strava API access token</div>
@@ -133,7 +128,6 @@
 
               ga('create', 'UA-85289613-1', 'auto');
               ga('send', 'pageview');
-            //ajaxRequest();
             window.location.href = "http://stravawindanalysis.com";
             $(".button-collapse").sideNav();
             $('.collapsible').collapsible();
